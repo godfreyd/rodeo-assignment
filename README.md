@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
     ```sh
     git clone git@github.com:godfreyd/rodeo-assignment.git
-    cd rodeo
+    cd rodeo-assignment
     npm i
     npm run start:dev
     ```
