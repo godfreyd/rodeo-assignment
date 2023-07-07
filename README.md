@@ -7,7 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 1. To start server, run the commands below:
 
     ```sh
-    git clone git@github.com:godfreyd/rodeo.git
+    git clone git@github.com:godfreyd/rodeo-assignment.git
     cd rodeo
     npm i
     npm run start:dev
