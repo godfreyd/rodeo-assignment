@@ -17,9 +17,9 @@ export interface IPhaseItem {
 
 export interface IPhase {
   title: string;
-  discount?: string;
-  fee?: string;
+  discount?: number;
+  fee?: number;
   items: IPhaseItem[];
-  subtotal: string;
+  subtotal: number;
   total: string;
 }
