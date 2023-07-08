@@ -34,8 +34,18 @@ const typeDefs = `#graphql
     total: String
   }
 
+  type Invoice {
+    number: Int
+    partner: String
+    date: String
+    totalCount: Int
+    fee: Int
+    discount: Int
+    phases: [Phase!]
+  }
+
   type Query {
-    phases(tax: Taxes): [Phase!]!
+    invoice: Invoice
   }
 `;
 
@@ -87,9 +97,19 @@ const phases = [
   },
 ];
 
+const invoice = {
+  number: 13,
+  partner: 'Kitty & Co LLC',
+  date: '2023/6/5',
+  totalCount: 1200,
+  fee: 0,
+  discount: 10,
+  phases
+}
+
 const resolvers = {
   Query: {
-    phases: () => phases,
+    invoice: () => invoice,
   },
 };
 

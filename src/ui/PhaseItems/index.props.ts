@@ -1,4 +1,4 @@
-import { IPhaseItem } from "../../store/phase/interfaces/phase.interface";
+import { IPhaseItem } from "../../store/invoice/interfaces/phase.interface";
 
 export interface IPhaseItemProps {
   data: IPhaseItem[];
