@@ -1,17 +1,9 @@
-import { IPhaseItem } from "../interfaces";
+import { IInvoice } from "../interfaces";
+import sumBy from 'lodash/sumBy';
 
-const taxMap = {
-    GIFT: 0,
-    INCOME: 12,
-    SALES: 18,
-    VALUE_ADDED: 24,
-};
-
-export const countTotal = (product: IPhaseItem) => {
-
-    const beforeTax = (product.amount * product.price) * (1 - product.discount/100);
-
-    const total = beforeTax * (1 + taxMap[product.tax]/100);
-
+export const countTotal = (invoice: IInvoice) => {
+    const subtotal =  Number(sumBy(invoice.phases, 'total').toFixed(2));
+    const minusDiscount = subtotal * (1 - invoice.discount/100);
+    const total = minusDiscount - invoice.fee;
     return Number(total.toFixed(2));
 }

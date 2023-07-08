@@ -6,8 +6,10 @@ import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { IPhase, IPhaseItem } from './interfaces';
-import { countTotal } from './services/countTotal';
+import { countProductTotal } from './services/countProductTotal';
 import { countSubTotal } from './services/countSubTotal';
+import { countPhaseTotal } from './services/countPhaseTotal';
+import { countTotal } from './services/countTotal';
 
 // The GraphQL schema
 const typeDefs = `#graphql
@@ -41,7 +43,7 @@ const typeDefs = `#graphql
     number: Int
     partner: String
     date: String
-    totalCount: Int
+    totalCount: Float
     fee: Int
     discount: Int
     phases: [Phase!]
@@ -61,7 +63,7 @@ const product1: IPhaseItem = {
   discount: 10
 }
 
-product1.total = countTotal(product1);
+product1.total = countProductTotal(product1);
 
 const product2: IPhaseItem = {
   title: 'PetFusion Ultimate Cat Scratcher Lounge',
@@ -72,7 +74,7 @@ const product2: IPhaseItem = {
   discount: 0,
 }
 
-product2.total = countTotal(product2);
+product2.total = countProductTotal(product2);
 
 const product3: IPhaseItem = {
   title: 'Evening Delivery',
@@ -83,7 +85,7 @@ const product3: IPhaseItem = {
   discount: 0,
 }
 
-product3.total = countTotal(product3);
+product3.total = countProductTotal(product3);
 
 const phase1: IPhase = {
   title: 'Goods for pets',
@@ -93,10 +95,11 @@ const phase1: IPhase = {
     product1,
     product2
   ],
-  total: '299.84'
+  subtotal: 0
 }
 
 phase1.subtotal = countSubTotal(phase1.items);
+phase1.total = countPhaseTotal(phase1);
 
 const phase2: IPhase = {
   title: 'Delivery',
@@ -105,10 +108,11 @@ const phase2: IPhase = {
   items: [
     product3
   ],
-  total: '87.29'
+  subtotal: 0
 }
 
 phase2.subtotal = countSubTotal(phase2.items);
+phase2.total = countPhaseTotal(phase2);
 
 const phases = [
   phase1,
@@ -119,11 +123,13 @@ const invoice = {
   number: 13,
   partner: 'Kitty & Co LLC',
   date: '2023/6/5',
-  totalCount: 1200,
+  totalCount: 0,
   fee: 0,
   discount: 10,
   phases
 }
+
+invoice.totalCount = countTotal(invoice);
 
 const resolvers = {
   Query: {

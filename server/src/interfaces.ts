@@ -17,9 +17,19 @@ export interface IPhaseItem {
 
 export interface IPhase {
     title: string;
-    discount?: number;
-    fee?: number;
+    discount: number;
+    fee: number;
     items: IPhaseItem[];
-    subtotal?: number;
-    total: string;
+    subtotal: number;
+    total?: number;
+}
+
+export interface IInvoice {
+    number: number,
+    partner: string,
+    date: string,
+    totalCount: number,
+    fee: number,
+    discount: number,
+    phases: IPhase[]
 }

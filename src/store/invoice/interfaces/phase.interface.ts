@@ -21,5 +21,5 @@ export interface IPhase {
   fee?: number;
   items: IPhaseItem[];
   subtotal: number;
-  total: string;
+  total: number;
 }

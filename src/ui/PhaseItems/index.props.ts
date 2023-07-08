@@ -5,5 +5,5 @@ export interface IPhaseItemProps {
   phasesubtotal: number;
   phasediscount?: number;
   phasefee?: number;
-  phasetotal?: string;
+  phasetotal?: number;
 }
