@@ -11,3 +11,5 @@ export const StyledDateContainer = styled.div`
   gap: 8px;
   padding-bottom: 16px;
 `;
+
+export const StyledTotalContainer = styled.div``;

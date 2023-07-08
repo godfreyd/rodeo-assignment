@@ -6,19 +6,21 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Phase from "../ui/Phase";
-import usePhases from "../store/phase/hooks/usePhases";
-import { IPhase } from "../store/phase/interfaces/phase.interface";
+import useInvoice from "../store/invoice/hooks/useInvoice";
+import { IPhase } from "../store/invoice/interfaces/phase.interface";
 import Calendar from "../ui/Icons/Calendar";
-import { StyledDateContainer } from "./styles";
+import { StyledDateContainer, StyledTotalContainer } from "./styles";
+import Box from "@mui/material/Box";
 
 export default function Home() {
-  const { list, loading, error } = usePhases();
+  const { list, loading, error } = useInvoice();
 
   if (loading) return <p>Loading...</p>;
 
   if (error) return <p>Error : {error.message}</p>;
 
-  const { phases } = list;
+  const { phases, number, date, partner, discount, fee, totalCount } =
+    list.invoice;
 
   return (
     <React.Fragment>
@@ -26,14 +28,12 @@ export default function Home() {
       <Container>
         <Card sx={{ minWidth: 275, background: "#e4ebf3" }}>
           <CardContent>
-            <Typography variant="h6">Invoice: №13</Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              Kitty & Co LLC
-            </Typography>
+            <Typography variant="h6">Invoice: №{number}</Typography>
+            <Typography sx={{ color: "text.secondary" }}>{partner}</Typography>
             <StyledDateContainer>
               <Calendar />
               <Typography sx={{ color: "text.secondary" }}>
-                {format(new Date(2023, 6, 5), "MM/dd/yyyy")}
+                {format(new Date(date), "MM/dd/yyyy")}
               </Typography>
             </StyledDateContainer>
             {phases &&
@@ -49,6 +49,28 @@ export default function Home() {
                   total={phase.total}
                 />
               ))}
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row-reverse",
+                pt: 1,
+              }}
+            >
+              <StyledTotalContainer>
+                {!!discount && (
+                  <Typography variant="body1">Discount: {discount}%</Typography>
+                )}
+                {!!fee && (
+                  <Typography variant="body1">Fee: {fee} EUR</Typography>
+                )}
+                {!!totalCount && (
+                  <Typography variant="body1">
+                    Total: {totalCount} EUR
+                  </Typography>
+                )}
+              </StyledTotalContainer>
+            </Box>
           </CardContent>
         </Card>
       </Container>
